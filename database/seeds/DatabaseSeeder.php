@@ -1,6 +1,9 @@
 <?php
 
 use App\Expediente;
+use App\Juzgado;
+use App\Materia;
+use App\Proceso;
 use App\User;
 use Illuminate\Database\Seeder;
 
@@ -14,7 +17,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         factory(User::class, 1)->create();
-        // factory(Expediente::class, 5)->create();
+        factory(Materia::class, 5)->create();
+        factory(Juzgado::class, 5)->create();
+        factory(Proceso::class, 5)->create();
+        factory(Expediente::class, 10)->create();
         // $this->call(UserSeeder::class);
     }
 }

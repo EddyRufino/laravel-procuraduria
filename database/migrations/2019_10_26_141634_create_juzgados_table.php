@@ -16,7 +16,6 @@ class CreateJuzgadosTable extends Migration
         Schema::create('juzgados', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nombreJuzgado', 100);
-            $table->boolean('condition')->nullable()->default(1);
             $table->timestamps();
         });
     }

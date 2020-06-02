@@ -17,7 +17,6 @@ class CreateProcesosTable extends Migration
             $table->bigIncrements('id');
             $table->string('nombreProceso', 100);
             $table->integer('plazo')->nullable();
-            $table->boolean('condition')->nullable()->default(1);
             $table->timestamps();
         });
     }
