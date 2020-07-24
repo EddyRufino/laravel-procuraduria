@@ -3,11 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
+use App\User;
 
 class Expediente extends Model
 {
     protected $guarded = [];
 
+    
     public function materia()
     {
     	return $this->belongsTo(Materia::class);
@@ -28,11 +31,22 @@ class Expediente extends Model
         return $this->belongsToMany(User::class);
     }
 
-    // public function setConditionAttribute($condition)
-    // {
-    //     $condition = 1;
-    //     $this->attributes['condition'] = 1;
-    // }
+    public function expiredFile($pendientes)
+    {
+        // foreach ($pendientes as $pendiente) {
+            // $au = $pendiente->fechaAudiencia;
+            $na = $pendientes->map(function($pendiente, $key) {
+                if($pendiente == '2020-07-23')
+                {
+                    $pendiente->push('$pendiente');
+                }
+            });
+        // }
+
+        dd($na);
+
+        return $na;
+    }
 
     // public function syncTags($tags) {
 
@@ -45,3 +59,4 @@ class Expediente extends Model
     // }
 
 }
+

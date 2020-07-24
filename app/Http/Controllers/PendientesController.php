@@ -19,21 +19,10 @@ class PendientesController extends Controller
     public function index()
     {
         $juzgados = Juzgado::all();
-        // $pendientes = Expediente::where('user_id', auth()->id())
-        //         ->latest()
-        //         ->paginate(5);
-
-
-        // $pendientes = Expediente::with('users')
-        //     // ->where('user_id', auth()->id())
-        //     ->get();
-
 
         $tags = User::with('expedientes')
             ->where('id', auth()->id())
             ->get();
-        
-        // dd($tags);
 
         $pendientes = $tags->flatMap->expedientes;
 
@@ -52,46 +41,34 @@ class PendientesController extends Controller
         return view('pendientes.index', compact('pendientes', 'juzgados'));
     }
 
-    public function welcome()
+    public function welcome(Expediente $expediente)
     {
-        $date = Carbon::now();
-        $date = Carbon::parse($date);
-
-        // $pendientes = Expediente::where('user_id', auth()->id())
-        //         ->select('id', 'numExpediente', 'fechaApertura', 'fechaAudiencia')->get();
-
         $pendiente = User::with('expedientes')
                     ->where('id', auth()->id())
                     ->get();
-        
+
         $pendientes = $pendiente->flatMap->expedientes;
-        // dd($pendientes->pluck('fechaAudiencia'));
 
-        // foreach ($pendientes  as $pendiente) {
-        //     dd($pendiente->expedientes->attributes);
-        // }
+        // dd(Carbon::today()->addDays(6)->toDateString());
+        $today = Carbon::today()->toDateString();
+        $beforOneDay = Carbon::today()->subDays(1)->toDateString();
 
+        $addDay = Carbon::today()->addDays(1)->toDateString();
+        $addThreeDay = Carbon::today()->addDays(3)->toDateString();
 
-        return view('welcome', compact('pendientes'));
+        $pendientesVencidos = $pendientes
+            ->where('fechaAudiencia', '<', $beforOneDay);
+
+        // $pendientesPorVencer = $pendientes
+        //     ->whereIn('fechaAudiencia',[$today, $addDay, $addTwoDay, $addThreeDay]);
+
+        $pendientesPorVencer = $pendientes
+            ->whereBetween('fechaAudiencia',[$today, $addThreeDay]);
+
+        // dd($pendientesPorVencer);
+
+        return view('welcome', compact('pendientes', 'pendientesVencidos', 'pendientesPorVencer'));
     }
-
-    // public function welcome()
-    // {
-    //     $date = Carbon::now();
-
-    //     $date = Carbon::parse($date)->subDays(2);
-    //     // return $date;
-    //     // $resta = Carbon::parse('--02');
-    //     // return $date->diffInDays($resta);
-    //     $pendientes = Expediente::where('user_id', auth()->id())
-    //                 ->whereDate('fechaAudiencia', '=', $date)->get();
-    //             // ->select('created_at', 'fechaAudiencia')->get();
-
-    //     // return $pendientes;
-    //     // $p = $pendientes->diffForHumans(); ->format('Y-m-d')
-    //     return view('welcome', compact('pendientes'));
-    //     // return $pendientes;
-    // }
 
     public function destroy($id)
     {
