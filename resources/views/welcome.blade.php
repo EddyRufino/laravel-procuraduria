@@ -36,6 +36,8 @@
                 <h3 class="ml-4 mr-4 text-secondary card-header">Expedientes vencidos</h3>
 
                 @forelse ($pendientesVencidos as $pendiente)
+                    <div class="d-flex align-items-center">
+                        
                     
                     <a class="ml-4 mt-1 btn bg-danger"
                         href="{{ route('expedientes.show', $pendiente->id) }}"
@@ -45,10 +47,26 @@
                         Fecha Audiencia:&nbsp;
                         {{ $pendiente->fechaAudiencia }}
                         
-                        <span class="material-icons">
+
+
+                    </a><br>
+                
+                    <a href="#" onclick="document.getElementById('delete-message').submit()">
+                        <span class="material-icons" 
+                            
+                        >
                             delete_forever
                         </span>
-                    </a><br>                    
+                    </a>
+
+                        <form class="d-none"
+                            id="delete-message"
+                            action="{{ route('expedientes.destroy', $pendiente->id) }}"
+                            method="post"
+                        >
+                                @csrf @method('DELETE')
+                        </form>
+                    </div>
 
                 @empty
                     <p class="card-header ml-4">No hay casos por vencer</li>

@@ -31,6 +31,7 @@ class CreateExpedientesTable extends Migration
             $table->date('fechaAudiencia');
             $table->boolean('condition')->nullable()->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

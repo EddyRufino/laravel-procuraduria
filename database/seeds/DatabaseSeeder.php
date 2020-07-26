@@ -16,6 +16,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        User::truncate();
+        Materia::truncate();
+        Juzgado::truncate();
+        Proceso::truncate();
+        Expediente::truncate();
+
         factory(User::class, 1)->create();
         factory(Materia::class, 5)->create();
         factory(Juzgado::class, 5)->create();

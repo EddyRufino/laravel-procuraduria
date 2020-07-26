@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateExpedienteUserTable extends Migration
+class CreateExpedientesUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateExpedienteUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('expediente_user', function (Blueprint $table) {
+        Schema::create('expedientes_users', function (Blueprint $table) {
             $table->unsignedInteger('expediente_id');
             $table->unsignedInteger('user_id');
         });

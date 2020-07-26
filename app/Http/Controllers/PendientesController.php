@@ -49,29 +49,16 @@ class PendientesController extends Controller
 
         $pendientes = $pendiente->flatMap->expedientes;
 
-        // dd(Carbon::today()->addDays(6)->toDateString());
         $today = Carbon::today()->toDateString();
         $beforOneDay = Carbon::today()->subDays(1)->toDateString();
-
-        $addDay = Carbon::today()->addDays(1)->toDateString();
         $addThreeDay = Carbon::today()->addDays(3)->toDateString();
 
         $pendientesVencidos = $pendientes
             ->where('fechaAudiencia', '<', $beforOneDay);
 
-        // $pendientesPorVencer = $pendientes
-        //     ->whereIn('fechaAudiencia',[$today, $addDay, $addTwoDay, $addThreeDay]);
-
         $pendientesPorVencer = $pendientes
-            ->whereBetween('fechaAudiencia',[$today, $addThreeDay]);
-
-        // dd($pendientesPorVencer);
+            ->whereBetween('fechaAudiencia', [$today, $addThreeDay]);
 
         return view('welcome', compact('pendientes', 'pendientesVencidos', 'pendientesPorVencer'));
-    }
-
-    public function destroy($id)
-    {
-        //
     }
 }

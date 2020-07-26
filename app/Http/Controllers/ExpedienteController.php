@@ -111,6 +111,8 @@ class ExpedienteController extends Controller
 
     public function destroy(Expediente $expediente)
     {
-        //
+        $expediente->delete();
+
+        return back()->with('status', 'Eliminado con éxito!');
     }
 }
