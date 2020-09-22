@@ -302,20 +302,20 @@
 </main>
 @endsection
 
-@push('styles')
+{{-- @push('styles')
   <link rel="stylesheet" href="/adminlte/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
     <!-- Select2 -->
     <link rel="stylesheet" href="/adminlte/plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="/adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-@endpush
+@endpush --}}
 
 
-@push('scripts')
+{{-- @push('scripts')
     <script src="/adminlte/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
     <script src="/adminlte/plugins/select2/js/select2.full.min.js"></script>
-@endpush
+@endpush --}}
 
-<script>
+{{-- <script>
 	$('#datepicker').datepicker({
       autoclose: true
     });
@@ -323,4 +323,4 @@
     $('.select2').select2({
       practicantes: true
     });
-</script>
+</script> --}}

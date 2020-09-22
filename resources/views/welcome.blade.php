@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="card shadow card-primary card-outline">
+<div class="card shadow card-primary card-outline">  
     <div class="row pt-3">
         <div class="col-md-3">
             <a class="d-flex justify-content-around" href="{{ route('pendientes.index') }}">
@@ -50,22 +50,21 @@
 
 
                     </a><br>
-                
-                    <a href="#" onclick="document.getElementById('delete-message').submit()">
-                        <span class="material-icons" 
-                            
-                        >
-                            delete_forever
-                        </span>
+                {{-- onclick="document.getElementById('delete-message').submit()" --}}
+                    <a href="#" >
+                        <delete-expediente
+                            expediente-id="{{ $pendiente->id }}"
+                            >
+                        </delete-expediente>
                     </a>
 
-                        <form class="d-none"
+{{--                         <form class="d-none"
                             id="delete-message"
                             action="{{ route('expedientes.destroy', $pendiente->id) }}"
                             method="post"
                         >
                                 @csrf @method('DELETE')
-                        </form>
+                        </form> --}}
                     </div>
 
                 @empty

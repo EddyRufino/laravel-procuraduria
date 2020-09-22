@@ -25,6 +25,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="/adminlte/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
   <link rel="stylesheet" href="/adminlte/plugins/select2/dist/css/select2.min.css">
 
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.3.5/dist/alpine.min.js" defer></script>
+  {{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}"> --}}
+
   @stack('styles')
 
 </head>
@@ -56,16 +59,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </form> --}}
 
     <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      <li class="dropdown user user-menu">
+     <ul class="navbar-nav ml-auto">
+      {{-- <li class=" dropdown user user-menu menu-toggle"> --}}
         <!-- Menu Toggle Button -->
-        <a href="#" style="color: #6c757d" class="dropdown-toggle" data-toggle="dropdown">
+        {{--<a h ref="#" style="color: #6c757d" class="dropdown-toggle" data-t oggle="dropdown">--}}
           <!-- The user image in the navbar-->
-          <img src="/adminlte/img/user2-160x160.jpg" class="user-image" alt="User Image">
+          {{-- <img src="/adminlte/img/user2-160x160.jpg" class="us er-image" alt="User Image">--}}
           <!-- hidden-xs hides the username on small devices so only the image appears. -->
-          <span class="hidden-xs">{{ auth()->user()->name }}</span>
-        </a>
-      <ul class="dropdown-menu">
+          {{-- <span class="hidden-xs">{{ auth()->user()->name }}</span>
+        </a> --}}
+      {{-- <ul class="dropdown-menu"> --}}
         <!-- The user image in the menu -->
         {{-- <li class="user-header">
           <p>
@@ -75,23 +78,47 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </p>
         </li> --}}
         <!-- Menu Footer-->
-        <li class="user-footer">
+        {{-- <li class="user-footer"> --}}
           {{-- <div class="pull-left">
             <a href="#" class="btn btn-default btn-flat">Profile</a>
           </div> --}}
-          <p class="text-center">
-            {{ auth()->user()->name }}
+          {{-- <p class="text-center"> --}}
+            {{-- {{ auth()->user()->name }} --}}
             {{-- {{ auth()->user()->roles->count() ?' - '.auth()->user()->roles->first()->display_name : '' }}
             <small>Desde: {{ auth()->user()->created_at->format('d/M/Y') }}</small> --}}
-          </p>
-          <form method="POST" action="{{ route('logout') }}">
+          {{-- </p> --}}
+{{--           <form method="POST" action="{{ route('logout') }}">
             {{ csrf_field() }}
             <button href="#" class="btn btn-default btn btn-block">Cerrar Sesión</button>
-          </form>
-        </li>
+          </form> --}}
+{{--         </li>
       </ul>
-    </li>
-    </ul>
+    </li>--}}
+    </ul> 
+
+
+          <div @click.away="open = false" class="position-relative" x-data="{ open: false }">
+            <a href="#" @click="open = !open" class="text-secondary">
+              <span class="">{{ Auth::user()->name }}</span>
+              <svg style="width: 20px;" fill="currentColor" viewBox="0 0 20 20" :class="{'rotateX-180': open, 'rotateX-0': !open}" class=""><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+            </a>
+            <div x-show="open" class="position-absolute w-100 mt-2  rounded z-30">
+              <div class="px-2 py-2 bg-white rounded shadow">
+                
+                <a onclick="event.preventDefault();
+                  document.getElementById('logout-form').submit();"
+                  href="#" class="flex flex-items-center px-3 py-3">
+                    <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="text-gray-600"><path d="M0 0h24v24H0z" fill="none"></path><path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"></path></svg><span class="ml-2">Salir</span>
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                  {{ csrf_field() }}
+                </form>
+              </div>
+            </div>
+          </div>
+
+
+
   </nav>
   <!-- /.navbar -->
 
@@ -118,10 +145,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+  <div class="content-wrapper" >
     <!-- Main content -->
     @include('partials.session-status')
-    <div class="m-2">
+    <div class="m-2" id="app">
       @yield('content')
     </div>
     <!-- /.content -->
@@ -151,19 +178,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
-
+<script src="{{ asset('js/app.js') }}"></script>
 <!-- jQuery -->
 <script src="/adminlte/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 <!-- AdminLTE App -->
 <script src="/adminlte/js/adminlte.min.js"></script>
 
 {{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script> --}}
 <script src="/adminlte/plugins/select2/dist/js/select2.full.min.js"></script>
+
 <script src="/adminlte/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 
+
 @stack('scripts')
+
 
 </body>
 </html>
@@ -181,4 +212,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   $('.select2').select2({
     tags: true
   });
+
+   $("#menu-toggle").click(function(e) {
+          e.preventDefault();
+          $("#wrapper").toggleClass("toggled");
+        });
 </script>

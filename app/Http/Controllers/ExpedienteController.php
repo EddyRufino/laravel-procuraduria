@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ExpedienteRequest;
+// use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Http\Request;
 use App\Expediente;
 use App\Proceso;
@@ -112,7 +113,7 @@ class ExpedienteController extends Controller
     public function destroy(Expediente $expediente)
     {
         $expediente->delete();
-
-        return back()->with('status', 'Eliminado con éxito!');
+        
+        return response()->json(['message' => 'Expediente archivado:  ' . $expediente->numExpediente]);
     }
 }
